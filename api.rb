@@ -25,10 +25,23 @@ module Diaspora::Replica::API
   end
 
   def pipesh(cmd)
-    logger.info("Launching \"#{cmd}\"")
+    pipesh_block(cmd) do |line|
+      logger.info(line)
+    end
+  end
+
+  def pipesh_log_and_stdout(cmd)
+    pipesh_block(cmd) do |line|
+      logger.info(line)
+      puts(line)
+    end
+  end
+
+  def pipesh_block(cmd, &print_string)
+    print_string.call("Launching \"#{cmd}\"")
     IO.popen (cmd) do |f|
       while str = f.gets
-        logger.info(str.chomp)
+        print_string.call(str.chomp)
       end
     end
     $?
