@@ -3,7 +3,7 @@ node 'development.diaspora.local' {
     hostname            => $fqdn,
     environment         => 'development',
     rvm_version         => '1.26.11',
-    ruby_version        => '2.2',
+    ruby_version        => '2.2.4',
     app_directory       => '/home/diaspora',
     user                => 'diaspora',
     group               => 'diaspora',
